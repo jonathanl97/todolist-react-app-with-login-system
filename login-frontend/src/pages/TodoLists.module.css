@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  /*
+  border-radius: 1rem;
+  border: 2px solid white;
+  */
+  /*maybe remove. add a background behind the listcontainer and have 
+  borders around the lists instead. buttons outside the background.*/
+  margin: 0 0.7rem;
+  height: fit-content;
+  justify-content: space-between;
+}
+
+.listContainer {
+  /*
+  width: fit-content;
+  height: fit-content;
+  */
+  border-radius: 1rem;
+  width: 100%;
+  height: 100¤;
+  background-color: #292038;
+}
+
+.iconContainer {
+  width: 2rem;
+  height: 2rem;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 24px;
+  height: 2em;
+  padding: 0 1rem;
+  width: 10rem;
+  margin: 1rem;
+
+  cursor: pointer;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.createButton {
+  composes: button;
+  background-color: green;
+  margin: 0 0 1rem 1rem;
+}
+
+.archiveButton {
+  composes: button;
+  background-color: #7d65a4;
+  margin: 1rem 0 1rem 1rem;
+
+  &:hover {
+    background-color: #43355a;
+  }
+}

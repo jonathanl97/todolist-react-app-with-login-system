@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import { AuthProvider } from "./utils/Auth";
+import PrivateRoutes from "./utils/PrivateRoutes";
+import Navbar from "./components/Navbar";
 import Signin from "./pages/SignIn";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
 import About from "./pages/About";
 import Account from "./pages/Account";
-import Content from "./pages/Content";
-import { AuthProvider } from "./hooks/Auth";
-import PrivateRoutes from "./utils/PrivateRoutes";
+import TodoLists from "./pages/TodoLists";
 
 function App() {
   return (
@@ -16,10 +16,10 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route
-              path="/content"
+              path="/todolists"
               element={
                 <PrivateRoutes>
-                  <Content />
+                  <TodoLists />
                 </PrivateRoutes>
               }
             />

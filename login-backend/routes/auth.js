@@ -202,7 +202,7 @@ router.delete("/user/delete", checkAuthenticated, async (req, res, next) => {
 });
 
 //check if user is authenticated/
-function checkAuthenticated(req, res, next) {
+export function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {

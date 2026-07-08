@@ -7,6 +7,7 @@ import {
   HomeIcon,
   UserCircleIcon,
   Cog6ToothIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
@@ -23,8 +24,8 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <Link to="/" className={styles.brand} onClick={() => setMenuOpen(false)}>
-        <HomeIcon className={styles.logo} />
-        <h1 className={styles.brandName}>Placeholder</h1>
+        <ClipboardDocumentListIcon className={styles.logo} />
+        <h1 className={styles.brandName}>Todo</h1>
       </Link>
       <ul className={menuOpen ? styles.responsiveNavLinks : styles.navLinks}>
         <li>
@@ -41,14 +42,14 @@ export default function Navbar() {
         </li>
         <li>
           <NavLink
-            to="/content"
+            to="/todolists"
             style={({ isActive }) => ({
               backgroundColor: isActive ? "#43355A" : "",
             })}
             onClick={() => setMenuOpen(false)}
             className={styles.navLinksIndividual}
           >
-            Placeholder
+            Todolists
           </NavLink>
         </li>
         <li>

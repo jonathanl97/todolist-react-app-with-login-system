@@ -6,6 +6,7 @@ import passport from "passport";
 import connectPgSimple from "connect-pg-simple";
 import { pool } from "./db.js";
 import authRouter from "./routes/auth.js";
+import todoRouter from "./routes/listActions.js";
 import initializePassport from "./strategies/localPassport.js";
 
 const pgSession = connectPgSimple(session);
@@ -39,7 +40,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       //maxAge: 1000 * 60 * 60 * 24,  //24 hours
-      maxAge: 1000 * 60 * 60 * 2, //2 hours
+      maxAge: 1000 * 60 * 60 * 12, //12 hours
     },
   }),
 );
@@ -48,6 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", authRouter);
+app.use("/", todoRouter);
 
 app.listen(port, () => {
   console.log(`Api runnning on port ${port}.`);
