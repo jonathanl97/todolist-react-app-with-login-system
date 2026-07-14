@@ -108,12 +108,39 @@ router.delete("/todo/deleteitem", checkAuthenticated, async (req, res) => {
   }
 });
 
+//get archived lists
+router.post("/todo/getarchive", checkAuthenticated, async (req, res) => {
+  try {
+    const response = await pool.query(
+      "SELECT list_id, list_name, list_category FROM todo_lists WHERE user_id=$1 AND list_is_completed=$2",
+      [req.user.id, true],
+    );
+
+    const responseArray = response.rows;
+
+    const todoList = [];
+    let listObject = {};
+    for (let i = 0; i < responseArray.length; i++) {
+      const tasks = await pool.query(
+        "SELECT * FROM list_items WHERE list_id=$1",
+        [responseArray[i].list_id],
+      );
+      listObject = { ...responseArray[i], tasks: tasks.rows };
+      todoList[i] = listObject;
+    }
+
+    res.status(200).json(todoList);
+  } catch (err) {
+    throw err;
+  }
+});
+
 //get lists
 router.post("/todo/getlists", checkAuthenticated, async (req, res) => {
   try {
     const response = await pool.query(
-      "SELECT list_id, list_name, list_category, list_is_completed FROM todo_lists WHERE user_id=$1",
-      [req.user.id],
+      "SELECT list_id, list_name, list_category FROM todo_lists WHERE user_id=$1 AND list_is_completed=$2",
+      [req.user.id, false],
     );
 
     const responseArray = response.rows;

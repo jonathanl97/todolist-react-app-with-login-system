@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./TodoLists.module.css";
-import Lists from "../components/TodoList";
 import * as Todo from "../utils/TodoListFetch";
 import {
   PlusIcon,
-  PlusCircleIcon,
+  StopIcon,
   CheckIcon,
-  CheckCircleIcon,
   PencilIcon,
   PencilSquareIcon,
   TrashIcon,
@@ -28,32 +26,16 @@ import {
 
 export default function TodoLists() {
   //const [todo, setTodo] = useState([]);
-  const [listInfo, setListInfo] = useState({});
+  const [todoLists, setTodoLists] = useState([]);
+  const [editList, setEditList] = useState(false);
 
   useEffect(() => {
     const getLists = async () => {
       const lists = await Todo.getLists();
-      setListInfo(lists[0].list_name, lists[0].list_category);
-      //console.log(lists);
-      console.log(listInfo);
+      setTodoLists(lists);
     };
     getLists();
   }, []);
-
-  /*
-  todo.map(({ list, index }) => {
-    return <p key={index}>{list}</p>;
-  });
-
-  data.map(({ list, index }) => {
-    return (
-      <p key={index}>
-        {list.list_name}
-        {list.category}
-      </p>
-    );
-  });
-  */
 
   return (
     <>
@@ -61,15 +43,78 @@ export default function TodoLists() {
         <h1 style={{ marginTop: 60, marginBottom: 40 }}>Todo lists:</h1>
       </div>
       <div className={styles.container}>
-        <div className={styles.listContainer}>test</div>
+        <div className={styles.listContainer}>
+          {todoLists.map((todo, list_id) => (
+            <div key={list_id} className={styles.todoList}>
+              <h2>
+                {todo.list_name}
+                {/* 
+                <button
+                  className={styles.todoButtons}
+                  onClick={() => setEditList(!editList)}
+                >
+                  <PencilSquareIcon className={styles.iconContainer} />
+                </button>
+                <button className={styles.todoButtons}>
+                  <TrashIcon className={styles.iconContainer} />{" "}
+                </button>
+                */}
+              </h2>
+              <h3>{todo.list_category}</h3>
+              <ul>
+                {todoLists[list_id].tasks.map((task, item_id) => (
+                  <li key={item_id}>
+                    <p className={styles.itemText}>{task.item_name} </p>
+                    <div className={styles.itemEdit}>
+                      {editList && (
+                        <button className={styles.todoButtons}>
+                          <PencilIcon className={styles.iconContainer} />
+                        </button>
+                      )}
+                      {editList && (
+                        <button className={styles.todoButtons}>
+                          <TrashIcon className={styles.iconContainer} />
+                        </button>
+                      )}
+                      {!editList && (
+                        <button className={styles.todoButtons}>
+                          <StopIcon className={styles.iconContainer} />
+                        </button>
+                      )}
+                    </div>
+                    {/* fix empty space when edit is false */}
+                  </li>
+                ))}
+              </ul>
+              <div className={styles.todoEdit}>
+                {editList ? (
+                  <button
+                    className={styles.doneButton}
+                    onClick={() => setEditList(!editList)}
+                  >
+                    <p>Done</p>
+                  </button>
+                ) : (
+                  <button
+                    className={styles.editButton}
+                    onClick={() => setEditList(!editList)}
+                  >
+                    <PencilIcon className={styles.iconContainer} />
+                    <p>Edit</p>
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
         <div className={styles.buttonContainer}>
           <button className={styles.createButton}>
             <PlusIcon className={styles.iconContainer} />
-            Create
+            <p>Create</p>
           </button>
           <button className={styles.archiveButton}>
             <ArchiveBoxIcon className={styles.iconContainer} />
-            Archive
+            <p>Archive</p>
           </button>
         </div>
       </div>

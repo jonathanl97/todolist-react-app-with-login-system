@@ -96,6 +96,20 @@ export async function deleteItem(identifiers) {
   const jsonData = data.json();
 }
 
+export async function getArchive() {
+  const data = await fetch("http://localhost:8080/todo/getarchive", {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json",
+    },
+  });
+
+  const jsonData = await data.json();
+  return jsonData;
+}
+
 export async function getLists() {
   const data = await fetch("http://localhost:8080/todo/getlists", {
     credentials: "include",
