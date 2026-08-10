@@ -126,6 +126,7 @@
   font-weight: 500;
   border: solid;
   border-color: #43355a;
+
   &:hover {
     background-color: #43355a;
     color: white;

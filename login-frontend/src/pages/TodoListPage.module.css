@@ -10,6 +10,81 @@
   margin: 0 0.7rem;
   height: fit-content;
   justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .listContainer {
+    order: 2;
+  }
+
+  .buttonContainer {
+    order: 1;
+  }
+}
+
+/*
+.listHeader {
+}
+*/
+
+.listTabButtons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.activeButton {
+  color: white;
+  background-color: #7d65a4;
+  border: none;
+  border-radius: 0.5rem 0 0 0.5rem;
+  text-align: center;
+  font-size: 24px;
+  height: 3rem;
+  padding: 0 1rem;
+  margin: 1rem 0;
+  width: 10rem;
+
+  cursor: pointer;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: #43355a;
+  }
+}
+
+.selectedActiveButton {
+  composes: activeButton;
+  background-color: #43355a;
+}
+
+.completedButton {
+  color: white;
+  background-color: #7d65a4;
+  border: none;
+  border-radius: 0 0.5rem 0.5rem 0;
+  text-align: center;
+  font-size: 24px;
+  height: 3rem;
+  padding: 0 1rem;
+  margin: 1rem 0;
+  width: 10rem;
+
+  cursor: pointer;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: #43355a;
+  }
+}
+
+.selectedCompletedButton {
+  composes: completedButton;
+  background-color: #43355a;
 }
 
 .listContainer {
@@ -18,12 +93,17 @@
   width: 100%;
   height: fit-content;
   background-color: #292038;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .todoList {
   display: flex;
   flex-direction: column;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   border: 2px solid white;
   background-color: #1e1a23;
   width: 16rem;
@@ -31,6 +111,34 @@
   margin: 1rem;
   padding: 1rem;
   align-items: center;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/*possibly remove*/
+.listTitle {
+  text-align: center;
+}
+
+.taskCount {
+  text-align: start;
+  width: 2rem;
+  padding: 0.2rem 0;
+}
+
+.testDiv {
+  align-items: end;
+  align-self: flex-end;
+  width: 2rem;
+}
+
+.todoList h2 {
+  align-self: center;
+  margin: 0;
 }
 
 .todoList h3 {
@@ -53,14 +161,24 @@
   height: 3rem;
 }
 
+.taskContainer {
+  display: flex;
+}
+
 .itemText {
   align-self: center;
+  margin-left: 0.5rem;
+}
+
+.checkedItemText {
+  align-self: center;
+  text-decoration: line-through;
+  margin-left: 0.5rem;
 }
 
 .todoEdit {
   display: flex;
   align-items: center;
-  margin-top: 0.5rem;
 }
 
 .itemEdit {
@@ -72,6 +190,11 @@
   width: 2rem;
   height: 2rem;
   align-items: center;
+}
+
+.trashIcon {
+  composes: iconContainer;
+  color: red;
 }
 
 .todoButtons {
@@ -89,10 +212,12 @@
   }
 }
 
+/*
 .buttonContainer {
   display: flex;
   flex-direction: column;
 }
+*/
 
 .button {
   display: flex;
@@ -136,10 +261,21 @@
   }
 }
 
+.addButton {
+  composes: button;
+  background-color: green;
+  width: auto;
+  height: 2.5rem;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: darkgreen;
+  }
+}
+
 .createButton {
   composes: button;
   background-color: green;
-  margin: 0 0 0.75rem 1rem;
   justify-content: space-evenly;
 
   &:hover {
@@ -147,6 +283,7 @@
   }
 }
 
+/*
 .archiveButton {
   composes: button;
   background-color: #7d65a4;
@@ -157,3 +294,4 @@
     background-color: #43355a;
   }
 }
+*/

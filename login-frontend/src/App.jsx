@@ -6,7 +6,7 @@ import Signin from "./pages/SignIn";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Account from "./pages/Account";
-import TodoLists from "./pages/TodoLists";
+import TodoListPage from "./pages/TodoListPage";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
               path="/todolists"
               element={
                 <PrivateRoutes>
-                  <TodoLists />
+                  <TodoListPage />
                 </PrivateRoutes>
               }
             />

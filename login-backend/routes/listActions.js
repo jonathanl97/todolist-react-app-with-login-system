@@ -80,17 +80,18 @@ router.put("/todo/edititemname", checkAuthenticated, async (req, res) => {
 
 //check item
 router.put("/todo/checkitem", checkAuthenticated, async (req, res) => {
-  const { itemId } = req.body;
-  // req.user id
+  const { itemId, isChecked } = req.body;
 
   try {
     const response = await pool.query(
       "UPDATE list_items SET item_is_checked=$1 WHERE item_id=$2",
-      [true, itemId],
+      [isChecked, itemId],
     );
   } catch (err) {
     throw err;
   }
+
+  res.status(201).json("Checked");
 });
 
 //remove item
@@ -139,8 +140,8 @@ router.post("/todo/getarchive", checkAuthenticated, async (req, res) => {
 router.post("/todo/getlists", checkAuthenticated, async (req, res) => {
   try {
     const response = await pool.query(
-      "SELECT list_id, list_name, list_category FROM todo_lists WHERE user_id=$1 AND list_is_completed=$2",
-      [req.user.id, false],
+      "SELECT list_id, list_name, list_category, list_is_completed FROM todo_lists WHERE user_id=$1",
+      [req.user.id],
     );
 
     const responseArray = response.rows;
