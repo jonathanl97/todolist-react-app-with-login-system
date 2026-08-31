@@ -1,4 +1,4 @@
-export async function createList(identifiers) {
+export async function createList(listInfo) {
   const data = await fetch("http://localhost:8080/todo/createlist", {
     credentials: "include",
     method: "POST",
@@ -6,27 +6,13 @@ export async function createList(identifiers) {
       Accept: "application/json",
       "Content-type": "application/json",
     },
-    body: JSON.stringify(identifiers),
+    body: JSON.stringify(listInfo),
   });
 
-  const jsonData = data.json();
+  //const jsonData = data.json();
 }
 
-export async function editListName(identifiers) {
-  const data = await fetch("http://localhost:8080/todo/editlistname", {
-    credentials: "include",
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(identifiers),
-  });
-
-  const jsonData = data.json();
-}
-
-export async function deleteList(identifiers) {
+export async function deleteList(listId) {
   const data = await fetch("http://localhost:8080/todo/deletelist", {
     credentials: "include",
     method: "DELETE",
@@ -34,14 +20,14 @@ export async function deleteList(identifiers) {
       Accept: "application/json",
       "Content-type": "application/json",
     },
-    body: JSON.stringify(identifiers),
+    body: JSON.stringify({ listId }),
   });
 
   const jsonData = data.json();
 }
 
-export async function addItem(identifiers) {
-  const data = await fetch("http://localhost:8080/todo/additem", {
+export async function archiveList(identifiers) {
+  const data = await fetch("http://localhost:8080/todo/archivelist", {
     credentials: "include",
     method: "POST",
     headers: {
@@ -54,15 +40,15 @@ export async function addItem(identifiers) {
   const jsonData = data.json();
 }
 
-export async function editItemName(identifiers) {
-  const data = await fetch("http://localhost:8080/todo/edititemname", {
+export async function addItem(task) {
+  const data = await fetch("http://localhost:8080/todo/additem", {
     credentials: "include",
-    method: "PUT",
+    method: "POST",
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
     },
-    body: JSON.stringify(identifiers),
+    body: JSON.stringify(task),
   });
 
   const jsonData = data.json();
@@ -82,7 +68,7 @@ export async function checkItem(identifiers) {
   const jsonData = data.json();
 }
 
-export async function deleteItem(identifiers) {
+export async function deleteItem(itemId) {
   const data = await fetch("http://localhost:8080/todo/deleteitem", {
     credentials: "include",
     method: "DELETE",
@@ -90,24 +76,10 @@ export async function deleteItem(identifiers) {
       Accept: "application/json",
       "Content-type": "application/json",
     },
-    body: JSON.stringify(identifiers),
+    body: JSON.stringify(itemId),
   });
 
   const jsonData = data.json();
-}
-
-export async function getArchive() {
-  const data = await fetch("http://localhost:8080/todo/getarchive", {
-    credentials: "include",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-    },
-  });
-
-  const jsonData = await data.json();
-  return jsonData;
 }
 
 export async function getLists() {

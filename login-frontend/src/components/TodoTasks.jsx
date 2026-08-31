@@ -29,7 +29,7 @@ export default function Tasks({ task, listId }) {
     <li>
       <div className={styles.taskContainer}>
         <button
-          className={styles.todoButtons}
+          className={styles.checkButton}
           onClick={() => handleCheck(task.item_id, !task.item_is_checked)}
         >
           {checked ? (
@@ -44,10 +44,10 @@ export default function Tasks({ task, listId }) {
       </div>
       <div className={styles.itemEdit}>
         <button
-          className={styles.todoButtons}
+          className={styles.deleteTaskButton}
           onClick={() => handleDelete(task.item_id)}
         >
-          <TrashIcon className={styles.trashIcon} />
+          <TrashIcon className={styles.iconContainer} />
         </button>
       </div>
     </li>

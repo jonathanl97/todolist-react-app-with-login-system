@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./TodoListPage.module.css";
 import * as Todo from "../utils/TodoListFetch";
 import Lists from "../components/TodoLists";
+import CreateTodoModal from "../components/CreateTodo";
 import {
   PlusIcon,
   StopIcon,
@@ -29,6 +30,7 @@ export default function TodoListPage() {
   const [todoLists, setTodoLists] = useState([]);
   const [archivedLists, setArchivedLists] = useState([]);
   const [showArchive, setShowArchive] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const getLists = async () => {
@@ -73,21 +75,30 @@ export default function TodoListPage() {
       </div>
       <div className={styles.container}>
         <div className={styles.listContainer}>
-          {showArchive
-            ? completedLists.map((list) => (
-                <Lists key={list.list_id} list={list} />
-              ))
-            : activeLists.map((list) => (
-                <Lists key={list.list_id} list={list} />
-              ))}
+          <div className={styles.responsiveLayout}>
+            {showArchive
+              ? completedLists.map((list) => (
+                  <Lists key={list.list_id} list={list} />
+                ))
+              : activeLists.map((list) => (
+                  <Lists key={list.list_id} list={list} />
+                ))}
+          </div>
           {!showArchive && (
             <div className={styles.todoList}>
-              <button className={styles.createButton}>
+              <button
+                className={styles.createButton}
+                onClick={() => setShowModal(true)}
+              >
                 <PlusIcon className={styles.iconContainer} />
                 <p>Create</p>
               </button>
             </div>
           )}
+          <CreateTodoModal
+            showModal={showModal}
+            onClose={() => setShowModal(false)}
+          />
         </div>
       </div>
     </>

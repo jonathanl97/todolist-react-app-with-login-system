@@ -4,11 +4,6 @@
   --bg: #1e1a23;
   --border: white;
   --accent: #7d65a4;
-  /*
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  */
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -43,13 +38,6 @@ h1 {
   font-size: 36px;
   letter-spacing: -1.68px;
   margin: 16px 0;
-
-  /*
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 16px 0;
-  }
-  */
 }
 
 h2 {

@@ -1,36 +1,4 @@
-.container {
-  display: flex;
-  flex-direction: row;
-  /*
-  border-radius: 1rem;
-  border: 2px solid white;
-  */
-  /*maybe remove. add a background behind the listcontainer and have 
-  borders around the lists instead. buttons outside the background.*/
-  margin: 0 0.7rem;
-  height: fit-content;
-  justify-content: space-between;
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .listContainer {
-    order: 2;
-  }
-
-  .buttonContainer {
-    order: 1;
-  }
-}
-
-/*
-.listHeader {
-}
-*/
+/*CSS for TodoListPage, TodoLists, TodoTasks and CreateTodo*/
 
 .listTabButtons {
   display: flex;
@@ -87,8 +55,26 @@
   background-color: #43355a;
 }
 
+.container {
+  margin: 0 0.7rem;
+  height: fit-content;
+  justify-content: space-between;
+}
+
+/*
+@media screen and (max-width: 768px) {
+  .createButton {
+    order: 1;
+  }
+  .responsiveLayout {
+    order: 2;
+  }
+}
+*/
+
 .listContainer {
   display: flex;
+  flex-direction: row;
   border-radius: 1rem;
   width: 100%;
   height: fit-content;
@@ -97,6 +83,20 @@
   @media screen and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+.responsiveLayout {
+  composes: listContainer;
+  width: fit-content;
+}
+
+@media screen and (max-width: 768px) {
+  .responsiveLayout {
+    order: 2;
+  }
+  .createButton {
+    order: 1;
   }
 }
 
@@ -111,29 +111,31 @@
   margin: 1rem;
   padding: 1rem;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    order: 2;
+  }
 }
 
 .listHeader {
   display: flex;
-  justify-content: space-between;
+  align-content: center;
   width: 100%;
 }
 
 /*possibly remove*/
 .listTitle {
   text-align: center;
+  justify-self: center;
+  margin: auto;
 }
 
 .taskCount {
-  text-align: start;
+  text-align: center;
   width: 2rem;
   padding: 0.2rem 0;
-}
-
-.testDiv {
-  align-items: end;
-  align-self: flex-end;
-  width: 2rem;
+  font-size: large;
+  font-weight: 600;
 }
 
 .todoList h2 {
@@ -142,7 +144,7 @@
 }
 
 .todoList h3 {
-  margin: 0;
+  margin: 0 auto;
 }
 
 .todoList ul {
@@ -192,12 +194,18 @@
   align-items: center;
 }
 
+/*
 .trashIcon {
   composes: iconContainer;
-  color: red;
-}
+  color: #a30000;
 
-.todoButtons {
+  &:hover {
+    color: #770000;
+  }
+}
+*/
+
+.checkButton {
   margin: 0;
   padding: 0;
   background: none;
@@ -211,13 +219,6 @@
     transition: all 0.2s ease-in-out;
   }
 }
-
-/*
-.buttonContainer {
-  display: flex;
-  flex-direction: column;
-}
-*/
 
 .button {
   display: flex;
@@ -239,6 +240,7 @@
   }
 }
 
+/*
 .editButton {
   composes: button;
   background-color: #7d65a4;
@@ -260,16 +262,60 @@
     background-color: darkgreen;
   }
 }
+*/
 
-.addButton {
+.addTask {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.taskInput {
+  flex-direction: row;
+  border: 3px solid #7d65a4;
+  border-radius: 0.5rem;
+  height: 2rem;
+  width: auto;
+  padding: 0 0.5rem;
+}
+
+.addTaskButton {
   composes: button;
+  margin: 0;
+  padding: 0 0.3rem;
   background-color: green;
+  width: auto;
+  height: 38px;
+
+  &:hover {
+    background-color: darkgreen;
+  }
+}
+
+.deleteTaskButton {
+  composes: button;
+  margin: 0;
+  padding: 0 0.3rem;
+  background-color: #a30000;
+  width: auto;
+  height: 38px;
+
+  &:hover {
+    background-color: #770000;
+  }
+}
+
+.deleteButton {
+  composes: button;
+  background-color: #a30000;
   width: auto;
   height: 2.5rem;
   justify-content: space-between;
 
   &:hover {
-    background-color: darkgreen;
+    background-color: #770000;
   }
 }
 
@@ -283,15 +329,100 @@
   }
 }
 
-/*
-.archiveButton {
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 101;
+  background-color: rgb(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1a23;
+  padding: 2rem;
+  border: 2px solid #eafdf8;
+  border-radius: 1rem;
+  margin: 0.7rem;
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.formInput {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.formInput select {
+  border: 3px solid #7d65a4;
+  border-radius: 0.5rem;
+  height: 38px;
+}
+
+.formInput input {
+  border: 3px solid #7d65a4;
+  border-radius: 0.5rem;
+  height: 2rem;
+  padding: 0 34px 0 0.5rem;
+}
+
+.formButton {
   composes: button;
-  background-color: #7d65a4;
-  margin: 0.75rem 0 1rem 1rem;
-  justify-content: space-evenly;
+  margin: 0.5rem 0 0 0;
+  background-color: green;
+  width: auto;
+  height: 2rem;
+  justify-content: center;
 
   &:hover {
-    background-color: #43355a;
+    background-color: darkgreen;
   }
 }
-*/
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.closeButton {
+  composes: button;
+  margin: 2rem 0.3rem 0 0;
+  background-color: #a30000;
+  width: auto;
+  height: 2.5rem;
+  justify-content: center;
+
+  &:hover {
+    background-color: #770000;
+  }
+}
+
+.submitButton {
+  composes: button;
+  margin: 2rem 0 0 0.3rem;
+  background-color: green;
+  width: auto;
+  height: 2.5rem;
+  justify-content: center;
+
+  &:hover {
+    background-color: darkgreen;
+  }
+}

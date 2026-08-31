@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Tasks from "../components/TodoTasks";
 import styles from "../pages/TodoListPage.module.css";
+import Category from "../utils/CategoryColour";
+import * as Todo from "../utils/TodoListFetch";
 import {
   PlusIcon,
   StopIcon,
@@ -12,39 +14,80 @@ import {
 } from "@heroicons/react/24/outline";
 
 export default function Lists({ list }) {
-  const [editList, setEditList] = useState(false);
+  const [taskName, setTaskName] = useState("");
 
   const isCompleted = list.tasks.filter(
     (tasks) => tasks.item_is_checked === true,
   );
 
-  if (isCompleted.length == list.tasks.length) {
+  if (list.tasks.length > 0 && isCompleted.length == list.tasks.length) {
     console.log(isCompleted.length, list.tasks.length);
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const listId = list.list_id;
+
+    try {
+      //send task with list id to server
+      //after confirmation add to state/localstorage
+      await Todo.addItem({ listId, taskName });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      await Todo.deleteList(list.list_id);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
     <div className={styles.todoList}>
       <div className={styles.listHeader}>
-        <div className={styles.taskCount}>
-          <p>x/{list.tasks.length}</p>
-        </div>
+        <div style={{ width: "2rem" }}></div>
         <div className={styles.listTitle}>
           <h2>{list.list_name}</h2>
         </div>
-        <div className={styles.testDiv}>
-          <PencilSquareIcon className={styles.iconContainer} />
+        <div className={styles.taskCount}>
+          <p>
+            {isCompleted.length}/{list.tasks.length}
+          </p>
         </div>
       </div>
-      <h3>{list.list_category}</h3>
+      <Category category={list.list_category} />
       <ul>
         {list.tasks.map((task) => (
           <Tasks key={task.item_id} task={task} listId={list.list_id} />
         ))}
+
+        {!list.list_is_completed && (
+          <li>
+            <form className={styles.addTask} onSubmit={handleSubmit}>
+              <input
+                className={styles.taskInput}
+                type="text"
+                placeholder="Add task"
+                value={taskName}
+                onChange={(e) => setTaskName(e.target.value)}
+              />
+              <button className={styles.addTaskButton}>
+                <PlusIcon className={styles.iconContainer} />
+                {/*<p>Add</p>*/}
+              </button>
+            </form>
+          </li>
+        )}
       </ul>
       <div className={styles.todoEdit}>
-        <button className={styles.addButton}>
-          <PlusIcon className={styles.iconContainer} />
-          <p>Add</p>
+        <button className={styles.deleteButton} onClick={handleDelete}>
+          {/*<TrashIcon className={styles.iconContainer} />*/}
+          <p>Delete list</p>
         </button>
       </div>
     </div>
