@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./Account.module.css";
 import DeleteAccountModal from "../components/DeleteAccount";
 import ChangeEmailForm from "../components/ChangeEmail";
@@ -19,7 +19,6 @@ async function signOutUser() {
 export default function Account() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
   const { user } = useAuth();
   const { logout } = useAuth();
 

@@ -1,27 +1,28 @@
 import { useState } from "react";
 import styles from "../pages/TodoListPage.module.css";
 import * as Todo from "../utils/TodoListFetch";
-import {
-  PlusIcon,
-  StopIcon,
-  CheckIcon,
-  PencilIcon,
-  PencilSquareIcon,
-  TrashIcon,
-  ArchiveBoxIcon,
-} from "@heroicons/react/24/outline";
+import { StopIcon, CheckIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 export default function Tasks({ task, listId }) {
   const [checked, setChecked] = useState(task.item_is_checked);
 
   //issues with latency/not registering
   const handleCheck = async (itemId, isChecked) => {
-    await Todo.checkItem({ itemId, isChecked });
-    setChecked(!checked);
+    try {
+      await Todo.checkItem({ itemId, isChecked });
+      setChecked(!checked);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const handleDelete = async (itemId) => {
-    await Todo.deleteItem({ itemId });
+    try {
+      await Todo.deleteItem({ itemId });
+    } catch (error) {
+      throw error;
+    }
+
     //setstate delete task
   };
 

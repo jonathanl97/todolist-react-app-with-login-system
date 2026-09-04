@@ -6,7 +6,6 @@ const router = express.Router();
 
 //create list
 router.post("/todo/createlist", checkAuthenticated, async (req, res) => {
-  console.log(req.body);
   const { title, category } = req.body;
 
   try {
@@ -15,16 +14,6 @@ router.post("/todo/createlist", checkAuthenticated, async (req, res) => {
       [req.user.id, title, category],
     );
 
-    console.log(response);
-
-    /*
-    for (let i = 0; i < list.tasks.length; i++) {
-      await pool.query(
-        "INSERT INTO list_items (list_id, item_name) VALUES ($1, $2)",
-        [response, list.tasks[i]],
-      );
-    }
-    */
     res.status(200).json("List created");
   } catch (err) {
     throw err;
@@ -34,7 +23,6 @@ router.post("/todo/createlist", checkAuthenticated, async (req, res) => {
 //remove list
 router.delete("/todo/deletelist", checkAuthenticated, async (req, res) => {
   const { listId } = req.body;
-  // req.user id, cascade delete all list items too
 
   try {
     const response = await pool.query(
@@ -50,7 +38,6 @@ router.delete("/todo/deletelist", checkAuthenticated, async (req, res) => {
 
 router.post("/todo/archivelist", checkAuthenticated, async (req, res) => {
   const { listId, listCompleted } = req.body;
-  // req.user id, cascade delete all list items too
 
   try {
     const response = await pool.query(
@@ -66,8 +53,7 @@ router.post("/todo/archivelist", checkAuthenticated, async (req, res) => {
 
 //add item (update list)
 router.post("/todo/additem", checkAuthenticated, async (req, res) => {
-  const { listId, taskName } = req.body; //taskName?
-  // req.user id
+  const { listId, taskName } = req.body;
 
   try {
     const response = await pool.query(
@@ -94,13 +80,12 @@ router.put("/todo/checkitem", checkAuthenticated, async (req, res) => {
     throw err;
   }
 
-  res.status(201).json("Checked");
+  res.status(201).json("Checked/Unchecked");
 });
 
 //remove item
 router.delete("/todo/deleteitem", checkAuthenticated, async (req, res) => {
   const { itemId } = req.body;
-  // req.user id
 
   try {
     const response = await pool.query(

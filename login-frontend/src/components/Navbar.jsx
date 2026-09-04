@@ -4,9 +4,7 @@ import { Link, NavLink } from "react-router";
 import {
   Bars3Icon,
   XMarkIcon,
-  HomeIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 

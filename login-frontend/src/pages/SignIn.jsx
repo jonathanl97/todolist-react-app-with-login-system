@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./SignIn.module.css";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { validateEmail, validatePassword } from "../utils/ValidateCredentials";

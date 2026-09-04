@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import styles from "./AccountFeatures.module.css";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { validateEmail, validatePassword } from "../utils/ValidateCredentials";
-import { useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 
 async function deleteUser(credentials) {
@@ -32,7 +31,6 @@ export default function DeleteAccountModal({ showModal, children, onClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState();
-  const navigate = useNavigate();
   const { logout } = useAuth();
 
   const handleSubmitDelete = async (e) => {

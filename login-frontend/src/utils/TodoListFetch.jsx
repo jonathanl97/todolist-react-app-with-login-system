@@ -26,7 +26,7 @@ export async function deleteList(listId) {
   const jsonData = data.json();
 }
 
-export async function archiveList(identifiers) {
+export async function archiveList(listCompleted) {
   const data = await fetch("http://localhost:8080/todo/archivelist", {
     credentials: "include",
     method: "POST",
@@ -34,7 +34,7 @@ export async function archiveList(identifiers) {
       Accept: "application/json",
       "Content-type": "application/json",
     },
-    body: JSON.stringify(identifiers),
+    body: JSON.stringify(listCompleted),
   });
 
   const jsonData = data.json();

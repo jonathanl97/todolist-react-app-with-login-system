@@ -75,6 +75,7 @@ export default function TodoListPage() {
       </div>
       <div className={styles.container}>
         <div className={styles.listContainer}>
+          <div className={styles.leftMargin} />
           <div className={styles.responsiveLayout}>
             {showArchive
               ? completedLists.map((list) => (
@@ -85,14 +86,16 @@ export default function TodoListPage() {
                 ))}
           </div>
           {!showArchive && (
-            <div className={styles.todoList}>
-              <button
-                className={styles.createButton}
-                onClick={() => setShowModal(true)}
-              >
-                <PlusIcon className={styles.iconContainer} />
-                <p>Create</p>
-              </button>
+            <div className={styles.sideBar}>
+              <div className={styles.createList}>
+                <button
+                  className={styles.createButton}
+                  onClick={() => setShowModal(true)}
+                >
+                  <PlusIcon className={styles.iconContainer} />
+                  <p>Create</p>
+                </button>
+              </div>
             </div>
           )}
           <CreateTodoModal

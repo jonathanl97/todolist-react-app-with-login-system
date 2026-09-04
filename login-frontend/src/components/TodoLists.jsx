@@ -1,14 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Tasks from "../components/TodoTasks";
 import styles from "../pages/TodoListPage.module.css";
 import Category from "../utils/CategoryColour";
 import * as Todo from "../utils/TodoListFetch";
 import {
   PlusIcon,
-  StopIcon,
-  CheckIcon,
-  PencilIcon,
-  PencilSquareIcon,
   TrashIcon,
   ArchiveBoxIcon,
 } from "@heroicons/react/24/outline";
@@ -20,9 +16,16 @@ export default function Lists({ list }) {
     (tasks) => tasks.item_is_checked === true,
   );
 
-  if (list.tasks.length > 0 && isCompleted.length == list.tasks.length) {
-    console.log(isCompleted.length, list.tasks.length);
-  }
+  //change to useEffect?
+  const handleArchiveList = async () => {
+    if (list.tasks.length > 0 && isCompleted.length == list.tasks.length) {
+      try {
+        await Todo.archiveList(true);
+      } catch (error) {
+        throw error;
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ export default function Lists({ list }) {
     try {
       //send task with list id to server
       //after confirmation add to state/localstorage
+      //do the same with delete item
       await Todo.addItem({ listId, taskName });
     } catch (error) {
       throw error;
@@ -40,6 +44,8 @@ export default function Lists({ list }) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
+
+    //add warning/confirmation about cascade delete
     try {
       await Todo.deleteList(list.list_id);
     } catch (error) {
@@ -63,7 +69,12 @@ export default function Lists({ list }) {
       <Category category={list.list_category} />
       <ul>
         {list.tasks.map((task) => (
-          <Tasks key={task.item_id} task={task} listId={list.list_id} />
+          <Tasks
+            key={task.item_id}
+            task={task}
+            listId={list.list_id}
+            onCheck={handleArchiveList}
+          />
         ))}
 
         {!list.list_is_completed && (
@@ -78,7 +89,6 @@ export default function Lists({ list }) {
               />
               <button className={styles.addTaskButton}>
                 <PlusIcon className={styles.iconContainer} />
-                {/*<p>Add</p>*/}
               </button>
             </form>
           </li>

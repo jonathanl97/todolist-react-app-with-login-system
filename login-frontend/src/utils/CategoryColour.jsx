@@ -2,15 +2,15 @@ export default function Category({ category }) {
   const checkColor = (category) => {
     switch (category) {
       case "Home":
-        return "green";
+        return "lightgreen";
       case "Work":
-        return "red";
+        return "lightcoral";
       case "School":
-        return "yellow";
+        return "lightgoldenrodyellow";
       case "Personal":
-        return "blue";
+        return "lightskyblue";
       case "Other":
-        return "grey";
+        return "lightslategrey";
       default:
     }
   };
