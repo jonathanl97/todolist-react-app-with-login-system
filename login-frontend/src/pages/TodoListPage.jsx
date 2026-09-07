@@ -98,6 +98,7 @@ export default function TodoListPage() {
               </div>
             </div>
           )}
+          {showArchive && <div className={styles.rightMargin} />}
           <CreateTodoModal
             showModal={showModal}
             onClose={() => setShowModal(false)}

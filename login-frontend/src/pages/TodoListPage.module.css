@@ -77,11 +77,19 @@
 }
 
 .responsiveLayout {
-  composes: listContainer;
-  width: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  border-radius: 1rem;
+  width: 100%;
+  height: fit-content;
+  background-color: #292038;
+  /*composes: listContainer;
+  width: fit-content;*/
   overflow-x: scroll;
 
   @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
     order: 2;
     padding: 0 0 1rem 0;
   }
@@ -102,6 +110,15 @@
     margin: 1rem 0;
     box-shadow: 0 0 1rem #1e1a23;
     clip-path: inset(0 -1rem 0 0);
+  }
+}
+
+.rightMargin {
+  @media screen and (min-width: 768px) {
+    padding: 0 1rem 0 0;
+    margin: 1rem 0;
+    box-shadow: 0 0 1rem #1e1a23;
+    clip-path: inset(0 0 0 -1rem);
   }
 }
 
@@ -176,6 +193,7 @@
   border-bottom: 1px solid white;
   margin: 0.5rem;
   height: 3rem;
+  width: 240px;
 }
 
 .taskContainer {
@@ -196,6 +214,8 @@
 .todoEdit {
   display: flex;
   align-items: center;
+  width: 240px;
+  justify-content: center;
 }
 
 .itemEdit {

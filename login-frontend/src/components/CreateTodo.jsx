@@ -32,7 +32,8 @@ export default function CreateTodoModal({ showModal, onClose }) {
               required
               type="text"
               placeholder="Title"
-              //value={title}
+              maxLength={32}
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
@@ -41,7 +42,6 @@ export default function CreateTodoModal({ showModal, onClose }) {
             <select
               required
               value={category}
-              //add default value
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="Personal">Personal</option>

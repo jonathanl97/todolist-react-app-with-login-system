@@ -84,6 +84,7 @@ export default function Lists({ list }) {
                 className={styles.taskInput}
                 type="text"
                 placeholder="Add task"
+                maxLength={50}
                 value={taskName}
                 onChange={(e) => setTaskName(e.target.value)}
               />
