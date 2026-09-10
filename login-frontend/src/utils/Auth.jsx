@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser({ name: null, firstName: null, email: null, signedIn: false });
+    localStorage.removeItem("showArchive");
   };
 
   return <AuthContext value={{ user, login, logout }}>{children}</AuthContext>;

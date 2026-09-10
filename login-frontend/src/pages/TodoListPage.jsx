@@ -7,28 +7,12 @@ import {
   PlusIcon,
   StopIcon,
   CheckIcon,
-  PencilIcon,
-  PencilSquareIcon,
   TrashIcon,
   ArchiveBoxIcon,
 } from "@heroicons/react/24/outline";
 
-//adding list, send userid
-//editing list, send listid
-//editing task, enough to send itemid since they are all unique
-//adding task, send list id
-
-//create whole list before sending to server. have ability to add tasks to the list afterwards. minimise server requests.
-
-//do the tasks need to be saved client side for smoothness?
-
-//display number of tasks in each list
-
-//filter lists based on completion. load completed lists in archive
-
 export default function TodoListPage() {
   const [todoLists, setTodoLists] = useState([]);
-  const [archivedLists, setArchivedLists] = useState([]);
   const [showArchive, setShowArchive] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -38,6 +22,11 @@ export default function TodoListPage() {
       setTodoLists(lists);
     };
     getLists();
+  }, []);
+
+  useEffect(() => {
+    const archive = JSON.parse(localStorage.getItem("showArchive"));
+    setShowArchive(archive);
   }, []);
 
   const activeLists = todoLists.filter(
@@ -57,7 +46,10 @@ export default function TodoListPage() {
             className={
               showArchive ? styles.activeButton : styles.selectedActiveButton
             }
-            onClick={() => setShowArchive(false)}
+            onClick={() => {
+              setShowArchive(false);
+              localStorage.setItem("showArchive", "false");
+            }}
           >
             Active
           </button>
@@ -67,7 +59,10 @@ export default function TodoListPage() {
                 ? styles.selectedCompletedButton
                 : styles.completedButton
             }
-            onClick={() => setShowArchive(true)}
+            onClick={() => {
+              setShowArchive(true);
+              localStorage.setItem("showArchive", "true");
+            }}
           >
             Completed
           </button>

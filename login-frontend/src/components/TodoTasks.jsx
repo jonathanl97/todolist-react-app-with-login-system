@@ -6,7 +6,6 @@ import { StopIcon, CheckIcon, TrashIcon } from "@heroicons/react/24/outline";
 export default function Tasks({ task, listId }) {
   const [checked, setChecked] = useState(task.item_is_checked);
 
-  //issues with latency/not registering
   const handleCheck = async (itemId, isChecked) => {
     try {
       await Todo.checkItem({ itemId, isChecked });
@@ -23,7 +22,7 @@ export default function Tasks({ task, listId }) {
       throw error;
     }
 
-    //setstate delete task
+    window.location.reload();
   };
 
   return (

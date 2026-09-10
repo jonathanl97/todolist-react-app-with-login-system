@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import Tasks from "../components/TodoTasks";
 import styles from "../pages/TodoListPage.module.css";
 import Category from "../utils/CategoryColour";
@@ -12,45 +12,66 @@ import {
 export default function Lists({ list }) {
   const [taskName, setTaskName] = useState("");
 
+  const listId = list.list_id;
+
   const isCompleted = list.tasks.filter(
     (tasks) => tasks.item_is_checked === true,
   );
 
-  //change to useEffect?
+  /*
+  useEffect(() => {
+    handleArchiveList();
+  }, []);
+
+  
   const handleArchiveList = async () => {
+    console.log("test");
+
     if (list.tasks.length > 0 && isCompleted.length == list.tasks.length) {
+      const listCompleted = true;
       try {
-        await Todo.archiveList(true);
+        await Todo.archiveList({ listId, listCompleted });
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    if (
+      list.list_is_completed == true &&
+      isCompleted.length < list.tasks.length
+    ) {
+      const listCompleted = false;
+      try {
+        await Todo.archiveList({ listId, listCompleted });
       } catch (error) {
         throw error;
       }
     }
   };
+  */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const listId = list.list_id;
-
     try {
-      //send task with list id to server
-      //after confirmation add to state/localstorage
-      //do the same with delete item
       await Todo.addItem({ listId, taskName });
     } catch (error) {
       throw error;
     }
+
+    window.location.reload();
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
 
-    //add warning/confirmation about cascade delete
     try {
       await Todo.deleteList(list.list_id);
     } catch (error) {
       throw error;
     }
+
+    window.location.reload();
   };
 
   return (
@@ -73,7 +94,7 @@ export default function Lists({ list }) {
             key={task.item_id}
             task={task}
             listId={list.list_id}
-            onCheck={handleArchiveList}
+            //onCheck={handleArchiveList}
           />
         ))}
 
@@ -81,6 +102,7 @@ export default function Lists({ list }) {
           <li>
             <form className={styles.addTask} onSubmit={handleSubmit}>
               <input
+                required
                 className={styles.taskInput}
                 type="text"
                 placeholder="Add task"
@@ -97,7 +119,6 @@ export default function Lists({ list }) {
       </ul>
       <div className={styles.todoEdit}>
         <button className={styles.deleteButton} onClick={handleDelete}>
-          {/*<TrashIcon className={styles.iconContainer} />*/}
           <p>Delete list</p>
         </button>
       </div>

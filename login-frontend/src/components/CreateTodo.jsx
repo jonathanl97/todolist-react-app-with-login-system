@@ -17,6 +17,9 @@ export default function CreateTodoModal({ showModal, onClose }) {
     } catch (error) {
       throw error;
     }
+
+    onClose();
+    window.location.reload();
   };
 
   return createPortal(
