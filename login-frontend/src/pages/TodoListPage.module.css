@@ -8,6 +8,8 @@
 }
 
 .activeButton {
+  display: flex;
+  flex-direction: row;
   color: white;
   background-color: #7d65a4;
   border: none;
@@ -17,7 +19,9 @@
   height: 3rem;
   padding: 0 1rem;
   margin: 1rem 0;
-  width: 10rem;
+  width: 12rem;
+  align-items: center;
+  justify-content: space-evenly;
 
   cursor: pointer;
   &:hover {
@@ -32,6 +36,8 @@
 }
 
 .completedButton {
+  display: flex;
+  flex-direction: row;
   color: white;
   background-color: #7d65a4;
   border: none;
@@ -41,7 +47,9 @@
   height: 3rem;
   padding: 0 1rem;
   margin: 1rem 0;
-  width: 10rem;
+  width: 12rem;
+  align-items: center;
+  justify-content: space-between;
 
   cursor: pointer;
   &:hover {
@@ -83,8 +91,6 @@
   width: 100%;
   height: fit-content;
   background-color: #292038;
-  /*composes: listContainer;
-  width: fit-content;*/
   overflow-x: scroll;
 
   @media screen and (max-width: 768px) {
@@ -155,7 +161,6 @@
   width: 100%;
 }
 
-/*possibly remove*/
 .listTitle {
   text-align: center;
   justify-self: center;
@@ -307,10 +312,10 @@
   }
 }
 
-.deleteButton {
+.deleteListButton {
   composes: button;
   background-color: #a30000;
-  width: auto;
+  width: 11rem;
   height: 2.5rem;
   justify-content: space-between;
 

@@ -14,6 +14,6 @@ export default function Category({ category }) {
       default:
     }
   };
-  //maybe change colours to light variants
+
   return <h3 style={{ color: `${checkColor(category)}` }}>{category}</h3>;
 }

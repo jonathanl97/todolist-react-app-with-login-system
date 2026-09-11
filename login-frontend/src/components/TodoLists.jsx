@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Tasks from "../components/TodoTasks";
 import styles from "../pages/TodoListPage.module.css";
 import Category from "../utils/CategoryColour";
 import * as Todo from "../utils/TodoListFetch";
-import {
-  PlusIcon,
-  TrashIcon,
-  ArchiveBoxIcon,
-} from "@heroicons/react/24/outline";
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 export default function Lists({ list }) {
   const [taskName, setTaskName] = useState("");
@@ -17,38 +13,6 @@ export default function Lists({ list }) {
   const isCompleted = list.tasks.filter(
     (tasks) => tasks.item_is_checked === true,
   );
-
-  /*
-  useEffect(() => {
-    handleArchiveList();
-  }, []);
-
-  
-  const handleArchiveList = async () => {
-    console.log("test");
-
-    if (list.tasks.length > 0 && isCompleted.length == list.tasks.length) {
-      const listCompleted = true;
-      try {
-        await Todo.archiveList({ listId, listCompleted });
-      } catch (error) {
-        throw error;
-      }
-    }
-
-    if (
-      list.list_is_completed == true &&
-      isCompleted.length < list.tasks.length
-    ) {
-      const listCompleted = false;
-      try {
-        await Todo.archiveList({ listId, listCompleted });
-      } catch (error) {
-        throw error;
-      }
-    }
-  };
-  */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,12 +54,7 @@ export default function Lists({ list }) {
       <Category category={list.list_category} />
       <ul>
         {list.tasks.map((task) => (
-          <Tasks
-            key={task.item_id}
-            task={task}
-            listId={list.list_id}
-            //onCheck={handleArchiveList}
-          />
+          <Tasks key={task.item_id} task={task} listId={list.list_id} />
         ))}
 
         {!list.list_is_completed && (
@@ -118,7 +77,8 @@ export default function Lists({ list }) {
         )}
       </ul>
       <div className={styles.todoEdit}>
-        <button className={styles.deleteButton} onClick={handleDelete}>
+        <button className={styles.deleteListButton} onClick={handleDelete}>
+          <TrashIcon className={styles.iconContainer} />
           <p>Delete list</p>
         </button>
       </div>

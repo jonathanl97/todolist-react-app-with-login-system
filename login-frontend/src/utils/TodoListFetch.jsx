@@ -54,7 +54,7 @@ export async function addItem(task) {
   const jsonData = data.json();
 }
 
-export async function checkItem(identifiers) {
+export async function checkItem(taskStatus) {
   const data = await fetch("http://localhost:8080/todo/checkitem", {
     credentials: "include",
     method: "PUT",
@@ -62,7 +62,7 @@ export async function checkItem(identifiers) {
       Accept: "application/json",
       "Content-type": "application/json",
     },
-    body: JSON.stringify(identifiers),
+    body: JSON.stringify(taskStatus),
   });
 
   const jsonData = data.json();

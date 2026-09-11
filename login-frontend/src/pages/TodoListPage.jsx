@@ -5,10 +5,8 @@ import Lists from "../components/TodoLists";
 import CreateTodoModal from "../components/CreateTodo";
 import {
   PlusIcon,
-  StopIcon,
-  CheckIcon,
-  TrashIcon,
   ArchiveBoxIcon,
+  BoltIcon,
 } from "@heroicons/react/24/outline";
 
 export default function TodoListPage() {
@@ -51,6 +49,7 @@ export default function TodoListPage() {
               localStorage.setItem("showArchive", "false");
             }}
           >
+            <BoltIcon className={styles.iconContainer} />
             Active
           </button>
           <button
@@ -65,6 +64,7 @@ export default function TodoListPage() {
             }}
           >
             Completed
+            <ArchiveBoxIcon className={styles.iconContainer} />
           </button>
         </div>
       </div>
