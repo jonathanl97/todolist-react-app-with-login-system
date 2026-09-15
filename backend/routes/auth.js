@@ -153,7 +153,7 @@ router.put("/user/password", checkAuthenticated, async (req, res) => {
         ]);
 
         if (results.rows.length > 0) {
-          const user = results.rows[0];
+          //const user = results.rows[0];
 
           //bcrypt
           bcrypt.genSalt(function (err, salt) {

@@ -3,16 +3,18 @@ import styles from "../pages/TodoListPage.module.css";
 import * as Todo from "../utils/TodoListFetch";
 import { StopIcon, CheckIcon, TrashIcon } from "@heroicons/react/24/outline";
 
-export default function Tasks({ task }) {
+export default function Tasks({ task, listId }) {
   const [checked, setChecked] = useState(task.item_is_checked);
 
   const handleCheck = async (itemId, isChecked) => {
     try {
-      await Todo.checkItem({ itemId, isChecked });
+      await Todo.checkItem({ itemId, isChecked, listId });
       setChecked(!checked);
     } catch (error) {
       throw error;
     }
+
+    window.location.reload();
   };
 
   const handleDelete = async (itemId) => {

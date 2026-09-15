@@ -1,5 +1,6 @@
 export async function createList(listInfo) {
-  const data = await fetch("http://localhost:8080/todo/createlist", {
+  //const data =
+  await fetch("http://localhost:8080/todo/createlist", {
     credentials: "include",
     method: "POST",
     headers: {
@@ -8,12 +9,12 @@ export async function createList(listInfo) {
     },
     body: JSON.stringify(listInfo),
   });
-
   //const jsonData = data.json();
 }
 
 export async function deleteList(listId) {
-  const data = await fetch("http://localhost:8080/todo/deletelist", {
+  //const data =
+  await fetch("http://localhost:8080/todo/deletelist", {
     credentials: "include",
     method: "DELETE",
     headers: {
@@ -22,26 +23,12 @@ export async function deleteList(listId) {
     },
     body: JSON.stringify({ listId }),
   });
-
-  const jsonData = data.json();
-}
-
-export async function archiveList(listStatus) {
-  const data = await fetch("http://localhost:8080/todo/archivelist", {
-    credentials: "include",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(listStatus),
-  });
-
-  const jsonData = data.json();
+  //const jsonData = data.json();
 }
 
 export async function addItem(task) {
-  const data = await fetch("http://localhost:8080/todo/additem", {
+  //const data =
+  await fetch("http://localhost:8080/todo/additem", {
     credentials: "include",
     method: "POST",
     headers: {
@@ -50,12 +37,12 @@ export async function addItem(task) {
     },
     body: JSON.stringify(task),
   });
-
-  const jsonData = data.json();
+  //const jsonData = data.json();
 }
 
 export async function checkItem(taskStatus) {
-  const data = await fetch("http://localhost:8080/todo/checkitem", {
+  //const data =
+  await fetch("http://localhost:8080/todo/checkitem", {
     credentials: "include",
     method: "PUT",
     headers: {
@@ -64,12 +51,12 @@ export async function checkItem(taskStatus) {
     },
     body: JSON.stringify(taskStatus),
   });
-
-  const jsonData = data.json();
+  //const jsonData = data.json();
 }
 
 export async function deleteItem(itemId) {
-  const data = await fetch("http://localhost:8080/todo/deleteitem", {
+  //const data =
+  await fetch("http://localhost:8080/todo/deleteitem", {
     credentials: "include",
     method: "DELETE",
     headers: {
@@ -78,8 +65,7 @@ export async function deleteItem(itemId) {
     },
     body: JSON.stringify(itemId),
   });
-
-  const jsonData = data.json();
+  //const jsonData = data.json();
 }
 
 export async function getLists() {
