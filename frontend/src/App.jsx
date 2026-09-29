@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { AuthProvider } from "./utils/Auth";
+import { AuthProvider } from "./utils/AuthContext";
+import { TodoProvider } from "./utils/TodoContext";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Navbar from "./components/Navbar";
 import Signin from "./pages/SignIn";
@@ -19,7 +20,9 @@ function App() {
               path="/todolists"
               element={
                 <PrivateRoutes>
-                  <TodoListPage />
+                  <TodoProvider>
+                    <TodoListPage />
+                  </TodoProvider>
                 </PrivateRoutes>
               }
             />

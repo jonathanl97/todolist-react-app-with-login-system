@@ -2,11 +2,12 @@ import { useState } from "react";
 import Tasks from "../components/TodoTasks";
 import styles from "../pages/TodoListPage.module.css";
 import Category from "../utils/CategoryColour";
-import * as Todo from "../utils/TodoListFetch";
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { useTodo } from "../hooks/useTodo";
 
 export default function Lists({ list }) {
   const [taskName, setTaskName] = useState("");
+  const { todoFetch } = useTodo();
 
   const listId = list.list_id;
 
@@ -18,24 +19,20 @@ export default function Lists({ list }) {
     e.preventDefault();
 
     try {
-      await Todo.addItem({ listId, taskName });
+      await todoFetch("additem", "POST", { listId, taskName });
     } catch (error) {
       throw error;
     }
-
-    window.location.reload();
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
 
     try {
-      await Todo.deleteList(list.list_id);
+      await todoFetch("deletelist", "DELETE", { listId });
     } catch (error) {
       throw error;
     }
-
-    window.location.reload();
   };
 
   return (

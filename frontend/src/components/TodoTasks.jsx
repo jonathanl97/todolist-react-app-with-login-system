@@ -1,30 +1,24 @@
-import { useState } from "react";
 import styles from "../pages/TodoListPage.module.css";
-import * as Todo from "../utils/TodoListFetch";
 import { StopIcon, CheckIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { useTodo } from "../hooks/useTodo";
 
 export default function Tasks({ task, listId }) {
-  const [checked, setChecked] = useState(task.item_is_checked);
+  const { todoFetch } = useTodo();
 
   const handleCheck = async (itemId, isChecked) => {
     try {
-      await Todo.checkItem({ itemId, isChecked, listId });
-      setChecked(!checked);
+      await todoFetch("checkitem", "PUT", { itemId, isChecked, listId });
     } catch (error) {
       throw error;
     }
-
-    window.location.reload();
   };
 
   const handleDelete = async (itemId) => {
     try {
-      await Todo.deleteItem({ itemId });
+      await todoFetch("deleteitem", "DELETE", { itemId });
     } catch (error) {
       throw error;
     }
-
-    window.location.reload();
   };
 
   return (
@@ -34,13 +28,17 @@ export default function Tasks({ task, listId }) {
           className={styles.checkButton}
           onClick={() => handleCheck(task.item_id, !task.item_is_checked)}
         >
-          {checked ? (
+          {task.item_is_checked ? (
             <CheckIcon className={styles.iconContainer} />
           ) : (
             <StopIcon className={styles.iconContainer} />
           )}
         </button>
-        <p className={checked ? styles.checkedItemText : styles.itemText}>
+        <p
+          className={
+            task.item_is_checked ? styles.checkedItemText : styles.itemText
+          }
+        >
           {task.item_name}
         </p>
       </div>

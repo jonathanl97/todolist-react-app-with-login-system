@@ -92,10 +92,10 @@ router.post("/user/getuser", async (req, res) => {
     };
     res.status(200).json(user);
   } else {
+    //No user signed in
     res
       .status(498)
       .json({ name: null, firstName: null, email: null, signedIn: false });
-    //No user signed in
   }
 });
 
@@ -153,8 +153,6 @@ router.put("/user/password", checkAuthenticated, async (req, res) => {
         ]);
 
         if (results.rows.length > 0) {
-          //const user = results.rows[0];
-
           //bcrypt
           bcrypt.genSalt(function (err, salt) {
             bcrypt.hash(newPassword, salt, async function (err, hash) {

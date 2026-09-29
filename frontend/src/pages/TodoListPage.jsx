@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./TodoListPage.module.css";
-import * as Todo from "../utils/TodoListFetch";
 import Lists from "../components/TodoLists";
 import CreateTodoModal from "../components/CreateTodo";
 import {
@@ -9,15 +8,22 @@ import {
   BoltIcon,
 } from "@heroicons/react/24/outline";
 
+import { useTodo } from "../hooks/useTodo";
+
 export default function TodoListPage() {
-  const [todoLists, setTodoLists] = useState([]);
   const [showArchive, setShowArchive] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+  const { todoLists } = useTodo();
+  const { fetchLists } = useTodo();
+
   useEffect(() => {
     const getLists = async () => {
-      const lists = await Todo.getLists();
-      setTodoLists(lists);
+      try {
+        await fetchLists();
+      } catch (error) {
+        throw error;
+      }
     };
     getLists();
   }, []);
@@ -49,8 +55,9 @@ export default function TodoListPage() {
               localStorage.setItem("showArchive", "false");
             }}
           >
-            <BoltIcon className={styles.iconContainer} />
+            <p>{activeLists.length}</p>
             Active
+            <BoltIcon className={styles.iconContainer} />
           </button>
           <button
             className={
@@ -63,8 +70,9 @@ export default function TodoListPage() {
               localStorage.setItem("showArchive", "true");
             }}
           >
-            Completed
             <ArchiveBoxIcon className={styles.iconContainer} />
+            Completed
+            <p>{completedLists.length}</p>
           </button>
         </div>
       </div>

@@ -23,7 +23,7 @@ async function deleteUser(credentials) {
   }
 }
 
-export default function DeleteAccountModal({ showModal, children, onClose }) {
+export default function DeleteAccountModal({ showModal, onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");

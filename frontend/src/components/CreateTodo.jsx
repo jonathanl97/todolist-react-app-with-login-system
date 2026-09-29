@@ -1,25 +1,24 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import * as Todo from "../utils/TodoListFetch";
 import styles from "../pages/TodoListPage.module.css";
+import { useTodo } from "../hooks/useTodo";
 
 export default function CreateTodoModal({ showModal, onClose }) {
   if (!showModal) return null;
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Personal");
+  const { todoFetch } = useTodo();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await Todo.createList({ title, category });
+      await todoFetch("createlist", "POST", { title, category });
     } catch (error) {
       throw error;
     }
-
     onClose();
-    window.location.reload();
   };
 
   return createPortal(

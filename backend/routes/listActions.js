@@ -13,10 +13,11 @@ router.post("/todo/createlist", checkAuthenticated, async (req, res) => {
       "INSERT INTO todo_lists (user_id, list_name, list_category) VALUES ($1, $2, $3)",
       [req.user.id, title, category],
     );
-    res.status(200).json("List created");
   } catch (err) {
     throw err;
   }
+  const todoList = await getLists(req);
+  res.status(200).json(todoList);
 });
 
 //remove list
@@ -25,13 +26,14 @@ router.delete("/todo/deletelist", checkAuthenticated, async (req, res) => {
 
   try {
     await pool.query("DELETE FROM todo_lists WHERE list_id=$1", [listId]);
-    res.status(200).json("List deleted");
   } catch (err) {
     throw err;
   }
+  const todoList = await getLists(req);
+  res.status(200).json(todoList);
 });
 
-//add item (update list)
+//add item
 router.post("/todo/additem", checkAuthenticated, async (req, res) => {
   const { listId, taskName } = req.body;
 
@@ -40,10 +42,11 @@ router.post("/todo/additem", checkAuthenticated, async (req, res) => {
       "INSERT INTO list_items (list_id, item_name) VALUES ($1, $2)",
       [listId, taskName],
     );
-    res.status(200).json("Task added");
   } catch (err) {
     throw err;
   }
+  const todoList = await getLists(req);
+  res.status(200).json(todoList);
 });
 
 //check item
@@ -55,16 +58,15 @@ router.put("/todo/checkitem", checkAuthenticated, async (req, res) => {
       "UPDATE list_items SET item_is_checked=$1 WHERE item_id=$2",
       [isChecked, itemId],
     );
-
-    archiveList(listId);
-
-    res.status(201).json("Task checked/unchecked");
+    await archiveList(listId);
   } catch (err) {
     throw err;
   }
+  const todoList = await getLists(req);
+  res.status(201).json(todoList);
 });
 
-//archives or unarchives a list based on the if all tasks are checked or not
+//archives or unarchives a list if all tasks are checked or not
 async function archiveList(listId) {
   const list = await pool.query("SELECT * FROM list_items WHERE list_id=$1", [
     listId,
@@ -94,36 +96,45 @@ router.delete("/todo/deleteitem", checkAuthenticated, async (req, res) => {
 
   try {
     await pool.query("DELETE FROM list_items WHERE item_id=$1", [itemId]);
-    res.status(200).json("Task deleted");
   } catch (err) {
     throw err;
   }
+  const todoList = await getLists(req);
+  res.status(200).json(todoList);
 });
 
 //get lists
 router.post("/todo/getlists", checkAuthenticated, async (req, res) => {
+  const todoList = await getLists(req);
+  res.status(200).json(todoList);
+});
+
+async function getLists(req) {
   try {
     const response = await pool.query(
-      "SELECT list_id, list_name, list_category, list_is_completed FROM todo_lists WHERE user_id=$1",
+      "SELECT list_id, list_name, list_category, list_is_completed, list_created_at FROM todo_lists WHERE user_id=$1",
       [req.user.id],
     );
 
     const responseArray = response.rows;
-
     const todoList = [];
     let listObject = {};
+
     for (let i = 0; i < responseArray.length; i++) {
       const tasks = await pool.query(
         "SELECT * FROM list_items WHERE list_id=$1",
         [responseArray[i].list_id],
       );
       listObject = { ...responseArray[i], tasks: tasks.rows };
+      listObject.tasks.sort((a, b) => a.item_id - b.item_id);
       todoList[i] = listObject;
     }
-    res.status(200).json(todoList);
+
+    todoList.sort((a, b) => b.list_created_at - a.list_created_at);
+    return todoList;
   } catch (err) {
     throw err;
   }
-});
+}
 
 export default router;

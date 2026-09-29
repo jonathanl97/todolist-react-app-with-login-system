@@ -19,9 +19,9 @@
   height: 3rem;
   padding: 0 1rem;
   margin: 1rem 0;
-  width: 12rem;
+  width: 15rem;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
   cursor: pointer;
   &:hover {
@@ -47,7 +47,7 @@
   height: 3rem;
   padding: 0 1rem;
   margin: 1rem 0;
-  width: 12rem;
+  width: 15rem;
   align-items: center;
   justify-content: space-between;
 
