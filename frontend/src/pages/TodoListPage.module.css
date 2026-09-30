@@ -63,6 +63,24 @@
   background-color: #43355a;
 }
 
+@media screen and (max-width: 768px) {
+  .listTabButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .activeButton {
+    border-radius: 0.5rem 0.5rem 0 0;
+    margin: 1rem 0 0 0;
+    flex-direction: row-reverse;
+  }
+
+  .completedButton {
+    border-radius: 0 0 0.5rem 0.5rem;
+    margin: 0 0 1rem 0;
+  }
+}
+
 .container {
   margin: 0 0.7rem 0.7rem 0.7rem;
   height: fit-content;

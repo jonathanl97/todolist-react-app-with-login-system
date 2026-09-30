@@ -39,7 +39,7 @@ export default function Account() {
     <div className={styles.accountSettings}>
       <div className={styles.headerContainer}>
         <h1>Account</h1>
-        <h1>{user.signedIn ? "Hello " + user.firstName : ""}</h1>
+        <h2>{user.signedIn ? "Hello " + user.firstName : ""}</h2>
         <button className={styles.signOutButton} onClick={handleSignOut}>
           {loading ? "Loading..." : "Sign out"}
         </button>

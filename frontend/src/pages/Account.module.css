@@ -21,6 +21,26 @@
   border-bottom: 2px solid #eafdf8;
 }
 
+.headerContainer h2 {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .headerContainer {
+    flex-direction: column;
+  }
+
+  .headerContainer h1 {
+    margin-top: 0;
+    border-bottom: 2px solid #eafdf8;
+    padding: 1rem;
+  }
+
+  .headerContainer h2 {
+    margin-bottom: 1rem;
+  }
+}
+
 .accountSectionsContainer {
   margin-bottom: 1rem;
   padding-bottom: 1rem;

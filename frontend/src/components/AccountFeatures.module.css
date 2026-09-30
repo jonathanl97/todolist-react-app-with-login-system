@@ -120,6 +120,11 @@
 
 .confirmButton {
   composes: button;
+  background-color: green;
+
+  &:hover {
+    background-color: darkgreen;
+  }
 }
 
 .deleteButton {
